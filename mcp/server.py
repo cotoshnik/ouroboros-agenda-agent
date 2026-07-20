@@ -16,6 +16,8 @@ import re
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
+import collector
+
 HOST = "127.0.0.1"
 PORT = 9999
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -172,6 +174,54 @@ def tool_detect_hot_topics(args):
             "note": "«Горячие» темы кандидатны в динамический блок; включение в повестку подтверждает аналитик."}
 
 
+def tool_fetch_web_sources(args):
+    date = args.get("date") or datetime.now().strftime("%Y-%m-%d")
+    stats = collector.collect(date)
+    stats["note"] = "Собраны сигналы из открытых источников (data/web_sources.json). Повторный запуск дособирает только новые."
+    return stats
+
+
+def tool_get_signals(args):
+    date = args.get("date") or datetime.now().strftime("%Y-%m-%d")
+    topic = args.get("topic")
+    limit = int(args.get("limit", 50))
+    signals = collector.load_signals(date)["signals"]
+    if topic:
+        signals = [s for s in signals if topic in s["topics"]]
+    return {"date": date, "topic": topic or "all", "total": len(signals), "signals": signals[:limit]}
+
+
+def _web_section(date):
+    """Раздел черновика: мониторинг открытых источников."""
+    signals = collector.load_signals(date)["signals"]
+    lines = ["", "## 4. Мониторинг открытых источников", ""]
+    if not signals:
+        lines.append("Веб-сбор не выполнялся (запустите инструмент fetch_web_sources).")
+        return lines
+
+    topic_counts = {}
+    for s in signals:
+        for t in s["topics"]:
+            topic_counts[t] = topic_counts.get(t, 0) + 1
+    if topic_counts:
+        lines.append("Темы повестки: " + ", ".join("%s — %d" % (t, n) for t, n in
+                     sorted(topic_counts.items(), key=lambda kv: -kv[1])))
+        lines.append("")
+
+    urgent = [s for s in signals if s["urgent"]]
+    if urgent:
+        lines.append("**Экстренные сигналы:**")
+        lines += ["- **[%s]** %s — %s (%s)" % (s["source_name"], s["title"], s["link"],
+                  ", ".join(s["urgent"])) for s in urgent[:10]]
+        lines.append("")
+
+    relevant = [s for s in signals if s["topics"]][-10:]
+    if relevant:
+        lines.append("Последние релевантные публикации:")
+        lines += ["- [%s] %s — %s" % (s["source_name"], s["title"], s["link"]) for s in relevant]
+    return lines
+
+
 def tool_build_report_draft(args):
     date = args["date"]
     catalog = load_catalog()
@@ -214,8 +264,10 @@ def tool_build_report_draft(args):
     else:
         lines.append("Превышений порогов не зафиксировано.")
 
+    lines += _web_section(date)
+
     missing = tool_check_completeness({"date": date})["missing_base"]
-    lines += ["", "## 4. Полнота данных", ""]
+    lines += ["", "## 5. Полнота данных", ""]
     if missing:
         lines.append("Не поступили %d базовых показателей: %s"
                      % (len(missing), ", ".join(m["name"] for m in missing)))
@@ -249,6 +301,14 @@ TOOLS = [
     {"name": "detect_hot_topics",
      "description": "Найти «горячие» темы за дату: показатели, превысившие пороги (КТД, инциденты, DDoS и др.).",
      "inputSchema": {"type": "object", "properties": {"date": {"type": "string"}}, "required": ["date"]}},
+    {"name": "fetch_web_sources",
+     "description": "Собрать сигналы из открытых веб-источников (RSS из data/web_sources.json) за дату. Повторный запуск дособирает только новые публикации.",
+     "inputSchema": {"type": "object", "properties": {"date": {"type": "string"}}}},
+    {"name": "get_signals",
+     "description": "Получить собранные веб-сигналы за дату. Фильтры: topic (finance | cyber | security_svo | tech_ai | emergency), limit.",
+     "inputSchema": {"type": "object",
+                     "properties": {"date": {"type": "string"}, "topic": {"type": "string"},
+                                    "limit": {"type": "integer", "default": 50}}}},
     {"name": "build_report_draft",
      "description": "Собрать черновик аналитической справки за дату: базовый блок всегда, динамический — по наличию данных, плюс сигналы и контроль полноты.",
      "inputSchema": {"type": "object", "properties": {"date": {"type": "string"}}, "required": ["date"]}},
@@ -261,6 +321,8 @@ TOOL_IMPL = {
     "get_observations": tool_get_observations,
     "check_completeness": tool_check_completeness,
     "detect_hot_topics": tool_detect_hot_topics,
+    "fetch_web_sources": tool_fetch_web_sources,
+    "get_signals": tool_get_signals,
     "build_report_draft": tool_build_report_draft,
 }
 

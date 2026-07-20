@@ -10,7 +10,7 @@
 | Подпункт гайда | Что сделано | Где |
 |---|---|---|
 | 9.1 Создание SKILL.md | Манифест навыка: AS IS с time-per-step, TO BE-пайплайн, политика автономии (авто / human-in-the-loop) | `SKILL.md` |
-| 9.2 Настройка MCP-инструментов | Рабочий MCP-сервер (streamable_http, порт 9999, без зависимостей), 7 инструментов + конфиг для Settings → Advanced → MCP | `mcp/server.py`, `mcp/mcp_servers.json` |
+| 9.2 Настройка MCP-инструментов | Рабочий MCP-сервер (streamable_http, порт 9999, без зависимостей), 9 инструментов + конфиг для Settings → Advanced → MCP, реальный веб-коллектор RSS | `mcp/server.py`, `mcp/collector.py`, `mcp/mcp_servers.json` |
 | 9.3 Протокол A2A | Три специализированных агента (collector → analyst → editor) с карточками, контрактом handoff и правилами деградации | `agents/` |
 | 9.4 Память и контекст | `identity.md` (самоописание сценария), `scratchpad.md` (рабочая память), `knowledge/` (каталог показателей, источники, шаблон), `dialogue_blocks.json` (консолидированная история) | `memory/` |
 | 9.5 Safety layer | Цифровая Конституция P1–P7 (иммунная система P3, hardcoded sandbox P4, запрет `/evolve`), политика ревью Advisory/Blocking | `safety/` |
@@ -19,19 +19,29 @@
 
 ```bash
 cd ouroboros_agent
-python3 data/seed_demo.py 2026-07-19   # демо-данные за сутки (уже созданы)
-python3 mcp/server.py                  # MCP-сервер на http://localhost:9999/mcp
+python3 mcp/server.py   # MCP-сервер на http://localhost:9999/mcp
 ```
+
+Дальше агент собирает данные сам через MCP-инструменты:
+
+- **веб-мониторинг (реальный):** «Собери сигналы из открытых источников» →
+  `fetch_web_sources` обходит RSS (РБК, РИА, ТАСС, Интерфакс, Банк России),
+  размечает публикации по темам повестки и складывает в
+  `data/signals_<дата>.json`. Перечень источников и словарей —
+  `data/web_sources.json`.
+- **внутренние показатели:** поступают через `save_observation` из
+  внутренних источников (письма, инфопанель); для прогона без доступа к
+  ним есть демо-набор: `python3 data/seed_demo.py 2026-07-19`.
 
 В Ouroboros: Settings → Advanced → MCP → вставить содержимое
 `mcp/mcp_servers.json`. После подключения агенту доступны инструменты:
 `list_indicators`, `get_selection_criteria`, `save_observation`,
-`get_observations`, `check_completeness`, `detect_hot_topics`,
-`build_report_draft`.
+`get_observations`, `fetch_web_sources`, `get_signals`,
+`check_completeness`, `detect_hot_topics`, `build_report_draft`.
 
-Пример диалога для проверки: «Собери черновик справки за 2026-07-19» →
-агент вызовет `build_report_draft` и вернёт markdown-черновик
-(готовый пример — `data/report_draft_2026-07-19.md`).
+Пример диалога для проверки: «Собери сигналы и черновик справки за
+сегодня» → агент вызовет `fetch_web_sources`, затем `build_report_draft`
+и вернёт markdown-черновик с разделом веб-мониторинга.
 
 ## Структура
 
@@ -39,7 +49,8 @@ python3 mcp/server.py                  # MCP-сервер на http://localhost:
 ouroboros_agent/
 ├── SKILL.md                      # 9.1: манифест навыка (AS IS / TO BE / автономия)
 ├── mcp/
-│   ├── server.py                 # 9.2: MCP-сервер, 7 инструментов (Python 3.9+, stdlib)
+│   ├── server.py                 # 9.2: MCP-сервер, 9 инструментов (Python 3.9+, stdlib)
+│   ├── collector.py              # веб-коллектор RSS (реальный обход источников)
 │   └── mcp_servers.json          # 9.2: конфиг для Settings → Advanced → MCP
 ├── agents/                       # 9.3: A2A
 │   ├── collector.agent.json      #   сбор данных (auto)
@@ -58,8 +69,10 @@ ouroboros_agent/
 │   ├── BIBLE.md                  #   Конституция P1–P7
 │   └── review_policy.md          #   политика ревью
 └── data/
-    ├── seed_demo.py              #   генератор демо-наблюдений
+    ├── web_sources.json          #   открытые источники + тематические словари
+    ├── seed_demo.py              #   генератор демо-наблюдений (внутренние показатели)
     ├── observations_2026-07-19.json
+    ├── signals_<дата>.json       #   собранные веб-сигналы (создаётся коллектором)
     └── report_draft_2026-07-19.md
 ```
 
