@@ -277,6 +277,21 @@ def tool_build_report_draft(args):
     return {"date": date, "draft_markdown": "\n".join(lines)}
 
 
+def tool_export_report_docx(args):
+    """Собирает черновик и сохраняет его в markdown и Word (.docx)."""
+    import docx_export
+    date = args["date"]
+    draft = tool_build_report_draft({"date": date})["draft_markdown"]
+    md_path = os.path.join(DATA_DIR, "report_draft_%s.md" % date)
+    with open(md_path, "w", encoding="utf-8") as f:
+        f.write(draft)
+    docx_path = docx_export.markdown_to_docx(
+        draft, os.path.join(DATA_DIR, "report_draft_%s.docx" % date),
+        title="Аналитическая справка дежурной смены — %s" % date)
+    return {"date": date, "docx_path": docx_path, "md_path": md_path,
+            "note": "Справка сохранена в Word. Требует верификации аналитиком (human-in-the-loop)."}
+
+
 TOOLS = [
     {"name": "list_indicators",
      "description": "Каталог показателей для аналитических материалов (67 шт.). Фильтр block: base | dynamic | all.",
@@ -312,6 +327,9 @@ TOOLS = [
     {"name": "build_report_draft",
      "description": "Собрать черновик аналитической справки за дату: базовый блок всегда, динамический — по наличию данных, плюс сигналы и контроль полноты.",
      "inputSchema": {"type": "object", "properties": {"date": {"type": "string"}}, "required": ["date"]}},
+    {"name": "export_report_docx",
+     "description": "Собрать черновик справки и сохранить его в Word (.docx) и markdown в папку data/. Финальный шаг цикла подготовки справки.",
+     "inputSchema": {"type": "object", "properties": {"date": {"type": "string"}}, "required": ["date"]}},
 ]
 
 TOOL_IMPL = {
@@ -324,6 +342,7 @@ TOOL_IMPL = {
     "fetch_web_sources": tool_fetch_web_sources,
     "get_signals": tool_get_signals,
     "build_report_draft": tool_build_report_draft,
+    "export_report_docx": tool_export_report_docx,
 }
 
 
