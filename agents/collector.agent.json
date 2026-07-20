@@ -1,0 +1,17 @@
+{
+  "name": "collector_agent",
+  "role": "Сбор данных",
+  "protocol": "A2A",
+  "description": "Автономно мониторит источники (почтовые сводки, инфопанели, ленты) согласно критериям отбора из memory/knowledge/indicators.json и сохраняет значения показателей через MCP-инструменты сервера agenda_briefing.",
+  "autonomy": "auto",
+  "skills": ["monitor_sources", "parse_mail_reports", "apply_selection_windows"],
+  "mcp_tools": ["list_indicators", "get_selection_criteria", "save_observation", "check_completeness"],
+  "schedule": "ежедневно 06:10–09:05 по мере поступления источников",
+  "input": "расписание источников, критерии отбора показателей",
+  "output": "наблюдения за сутки (data/observations_<дата>.json), отчёт о полноте",
+  "handoff": { "to": "analyst_agent", "when": "check_completeness.complete == true либо 09:05 (дедлайн Координационного Штаба)" },
+  "constraints": [
+    "не выходит за пределы утверждённого перечня источников без подтверждения аналитика",
+    "фиксирует источник и время каждого наблюдения"
+  ]
+}

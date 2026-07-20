@@ -1,0 +1,481 @@
+{
+  "description": "Каталог показателей для подготовки аналитических материалов дежурной смены (источник: Показатели_для_подготовки_материалов.xlsx)",
+  "blocks": {
+    "base": "обязательный блок, включается в каждый материал",
+    "dynamic": "динамический блок, включается при наличии данных / изменении повестки"
+  },
+  "total": 67,
+  "base_count": 49,
+  "dynamic_count": 18,
+  "indicators": [
+    {
+      "id": 1,
+      "name": "Клиентопоток, млн. человек",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Значение клиентопотока берется за прошедшие сутки на время последнего обновления в Инфопанели (как правило, 20:00-23:00)"
+    },
+    {
+      "id": 2,
+      "name": "Динамика клиентопотока",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "В ежедневных материалах считается динамика по сравнению с предыдущими сутками, в еженедельных материалах по сравнению с прошедшей неделей"
+    },
+    {
+      "id": 3,
+      "name": "Прогнозное значение клиентопотока (с точным значением клиентопотока в разрезе дней)",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": ""
+    },
+    {
+      "id": 4,
+      "name": "Прогноз пиковых дней (количество ВСП с повышенным клиентопотоком в разрезе дней)",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": ""
+    },
+    {
+      "id": 5,
+      "name": "Сравнение с нормальным значением клиентопотока",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": ""
+    },
+    {
+      "id": 6,
+      "name": "Нормальное значение клиентопотока",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": ""
+    },
+    {
+      "id": 8,
+      "name": "Остаток наличности, млрд. руб.",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Значение остатка наличности берется по состоянию на текущие сутки (письмо на почту присылается ориентировочно в 06:30)"
+    },
+    {
+      "id": 9,
+      "name": "Динамика остатка наличности",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": ""
+    },
+    {
+      "id": 10,
+      "name": "Прогноз остатка наличности",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": ""
+    },
+    {
+      "id": 11,
+      "name": "Выдача в УС, млрд. руб.",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Значение выдачу в УС берется за прошедшие сутки (письмо на почту присылается ориентировночно в 06:30)"
+    },
+    {
+      "id": 12,
+      "name": "Динамика выдачи УС, млрд. руб.",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "В ежедневных материалах счиается динамика по сравнению с предыдущими сутками, в еженедельных материалах по сравнению с прошедшей неделей"
+    },
+    {
+      "id": 13,
+      "name": "Прогноз выдачи в УС, млрд. руб.",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": ""
+    },
+    {
+      "id": 14,
+      "name": "Взнос в УС, млрд. руб.",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": "Значение взноса в УС берется за прошедшие сутки (письмо на почту присылается ориентировочно в 06:30)"
+    },
+    {
+      "id": 15,
+      "name": "Сальдо в УС, млрд. руб.",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": ""
+    },
+    {
+      "id": 16,
+      "name": "Взнос в ВСП, RUB",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": "Значение взноса в ВСП берется за прошедшие сутки (письмо на почту присылается ориентировочно в 06:30)"
+    },
+    {
+      "id": 17,
+      "name": "Выдача в ВСП, RUB",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": "Значение взноса в ВСП берется за прошедшие сутки (письмо на почту присылается ориентировочно в 06:30)"
+    },
+    {
+      "id": 18,
+      "name": "Сальдо в ВСП, RUB",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": ""
+    },
+    {
+      "id": 19,
+      "name": "Взнос в ВСП, EUR",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": "Значение взноса в ВСП берется за прошедшие сутки (письмо на почту присылается ориентировочно в 06:30)"
+    },
+    {
+      "id": 20,
+      "name": "Выдача в ВСП, EUR",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": "Значение взноса в ВСП берется за прошедшие сутки (письмо на почту присылается ориентировочно в 06:30)"
+    },
+    {
+      "id": 21,
+      "name": "Сальдо в ВСП, EUR",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": ""
+    },
+    {
+      "id": 22,
+      "name": "Взнос в ВСП, USD",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": "Значение взноса в ВСП берется за прошедшие сутки (письмо на почту присылается ориентировочно в 06:30)"
+    },
+    {
+      "id": 23,
+      "name": "Выдача в ВСП, USD",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": "Значение взноса в ВСП берется за прошедшие сутки (письмо на почту присылается ориентировочно в 06:30)"
+    },
+    {
+      "id": 24,
+      "name": "Сальдо в ВСП, USD",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": ""
+    },
+    {
+      "id": 25,
+      "name": "Сальдо ВСП + УС, млрд. руб.",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": ""
+    },
+    {
+      "id": 26,
+      "name": "Коэффициент технической доступности, %",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Значение КТД берется за прошедшие сутки (письмо на почту присылается ориентировочно в 07:00-07:30)"
+    },
+    {
+      "id": 27,
+      "name": "Общее количество инцидентов безопасности",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Количество инцидентов берется за прошедшие сутки (письмо на почту присылается ориентировочно в 08:00)"
+    },
+    {
+      "id": 28,
+      "name": "Количество значимых инцидентов безопасности",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Количество инцидентов берется за прошедшие сутки (письмо на почту присылается ориентировочно в 08:00)"
+    },
+    {
+      "id": 29,
+      "name": "Среднее значение инцидентов безопасности с начала года",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": "Среднее значение инцидентов безопасности считается с начала года"
+    },
+    {
+      "id": 30,
+      "name": "Количество инцидентов, связанных с социальной инженерией",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Количество инцидентов берется за прошедшие сутки (письмо на почту присылается ориентировочно в 08:00)"
+    },
+    {
+      "id": 31,
+      "name": "Уровень безопасности объектов Банка",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": ""
+    },
+    {
+      "id": 32,
+      "name": "Общее количество инцидентов СВО",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Инциденты СВО учитываются с 09:00 предыдущего дня до 09:00 текущего дня (до начала Координационного Штаба)"
+    },
+    {
+      "id": 33,
+      "name": "Количество инцидентов СВО, повлиявших на непрерывность деятельности Банка",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 34,
+      "name": "Количество регионов, в которых зафиксированы инциденты СВО",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 35,
+      "name": "Количество БПЛА самолётного типа",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 36,
+      "name": "Количество БПЛА мультироторного типа",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 37,
+      "name": "Количество ракетных ударов и ракет",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 38,
+      "name": "Количество обстрелов (артиллерийскихя/минометных/РСЗО)",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 39,
+      "name": "Количество авиабомб",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 40,
+      "name": "Количество безэкипажных катеров (БЭК)",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 41,
+      "name": "Количество малоразмерных воздушных шаров (МВШ)",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 42,
+      "name": "Количество инцидентов, связанных с аварийной посадкой воздушного судна",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 43,
+      "name": "Количество авиаударов",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 44,
+      "name": "Количество с инцидентов, связанных с вооруженным нападением",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 45,
+      "name": "Количество инцидентов, связанных с диверсией",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 46,
+      "name": "Количество инцидентов, связанны с падением вощдушного судна",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 47,
+      "name": "Количество подрывов на ВУ",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 48,
+      "name": "Количество инцидентов, связанных с проникновением ДРГ",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 49,
+      "name": "Количество инцидентов , связанных со сходом боеприпаса",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 50,
+      "name": "Уровень интенсивности инцидентов СВО",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 51,
+      "name": "Уровень влияния инцидентов СВО",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 52,
+      "name": "План \"Ковёр\"",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 53,
+      "name": "Общее количество объявления сигналов ГО",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 54,
+      "name": "Информирование организаций-партнеров Банка",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Аналогично общему количеству инцидентов СВО"
+    },
+    {
+      "id": 55,
+      "name": "Общее количество IT-инцидентов",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Учитываются инциденты с 7:00 прыдыдущего дня до 07:00 текущего дня (письмо на почту присылается около 07:05)"
+    },
+    {
+      "id": 56,
+      "name": "Количество критичных IT-инцидентов",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Учитываются инциденты с 7:00 прыдыдущего дня до 07:00 текущего дня (письмо на почту присылается около 07:05)"
+    },
+    {
+      "id": 57,
+      "name": "Инциденты кибербезопасности",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Учитываются инциденты за прошедшие сутки (письмо на почту присылается около 06:10)"
+    },
+    {
+      "id": 58,
+      "name": "DDoS-атаки на ресурсы Банка",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Учитываются инциденты за прошедшие сутки (письмо на почту присылается около 06:10)"
+    },
+    {
+      "id": 59,
+      "name": "DDoS-атаки на ресурсы ДЗО",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Учитываются инциденты за прошедшие сутки (письмо на почту присылается около 06:10)"
+    },
+    {
+      "id": 60,
+      "name": "Больничные листы",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Считается средний процент больничных листов за 2 недели"
+    },
+    {
+      "id": 61,
+      "name": "Количество человек в приграничной зоне",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": ""
+    },
+    {
+      "id": 62,
+      "name": "Количество тяжелых случаев заболевания",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Учитывается колиечство сотрудников с тяжелым случаем заболевания, находящиеся на мониторинге"
+    },
+    {
+      "id": 63,
+      "name": "Сотрудники на дистанционном режиме работе",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Считается средний процент сотрудников на дистанционном режиме работы за 2 недели"
+    },
+    {
+      "id": 64,
+      "name": "Среднее количество заболевших",
+      "base_block": false,
+      "dynamic_block": true,
+      "selection_criterion": "Рассчитывается среднее значение за последнюю неделю и сравнивается с предыдущей неделей"
+    },
+    {
+      "id": 65,
+      "name": "Уровень заболеваемости в разрезе ГОСБ за 1 день",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Считается процент болеющих сотрудников в разрезе ГОСБ за предыдущий день"
+    },
+    {
+      "id": 66,
+      "name": "Уровень заболеваемости в разрезе ГОСБ за 2 недели",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Считается средний процент болеющих сотрудников в разрезе ГОСБ за 2 недели"
+    },
+    {
+      "id": 67,
+      "name": "Природные инциденты",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Учитываются инциденты с 09:00 предыдущего дня до 09:00 текущего дня"
+    },
+    {
+      "id": 68,
+      "name": "Технологические инциденты",
+      "base_block": true,
+      "dynamic_block": false,
+      "selection_criterion": "Учитываются инциденты с 09:00 предыдущего дня до 09:00 текущего дня"
+    }
+  ]
+}

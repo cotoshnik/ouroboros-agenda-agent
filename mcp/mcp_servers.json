@@ -1,0 +1,6 @@
+{
+  "name": "agenda_briefing",
+  "url": "http://localhost:9999/mcp",
+  "transport": "streamable_http",
+  "description": "MCP-сервер каталога показателей и сборки черновиков аналитических справок (навык agenda_briefing_agent). Запуск: python3 mcp/server.py"
+}

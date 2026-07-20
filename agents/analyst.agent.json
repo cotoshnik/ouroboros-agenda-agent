@@ -1,0 +1,17 @@
+{
+  "name": "analyst_agent",
+  "role": "Структурирование и приоритизация",
+  "protocol": "A2A",
+  "description": "Принимает собранные наблюдения от collector_agent, проверяет полноту базового блока, выявляет «горячие» темы по пороговым правилам и решает, какие показатели динамического блока включить в черновик.",
+  "autonomy": "auto с записью обоснований в scratchpad; продвижение новой темы в повестку — только после подтверждения аналитика",
+  "skills": ["completeness_check", "hot_topic_detection", "dynamic_block_selection"],
+  "mcp_tools": ["get_observations", "check_completeness", "detect_hot_topics"],
+  "schedule": "по сигналу handoff от collector_agent",
+  "input": "наблюдения за сутки, отчёт о полноте",
+  "output": "список «горячих» тем с обоснованиями, состав динамического блока",
+  "handoff": { "to": "editor_agent", "when": "состав блоков справки определён" },
+  "constraints": [
+    "не интерпретирует показатели и не формулирует выводы",
+    "каждое решение о включении динамического блока логируется в memory/scratchpad.md"
+  ]
+}
